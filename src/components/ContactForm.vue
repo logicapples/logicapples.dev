@@ -3,7 +3,7 @@
 <template>
   <div class="contact">
     <h1>Contact me</h1>
-    <form action="/contact/send" @submit.prevent="sendEmail">
+    <form @submit.prevent="sendEmail">
       <label>Email</label><br />
       <input
         type="email"
@@ -27,17 +27,13 @@
   export default {
     methods: {
       sendEmail() {
-        const email = document.querySelector("#email").value;
-        const message = document.querySelector("#text").value;
+        const email = document.querySelector("#email").value, message = document.querySelector("#text").value;
         const xhr = new XMLHttpRequest();
-        xhr.open("POST", "http://localhost:8393/contact/send");
+        xhr.open("POST", `${import.meta.env.VITE_SERVER_HOST}:${import.meta.env.VITE_SERVER_PORT}/contact/send`);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onload = () => {
-          if (xhr.status === 200) {
-            alert("Email sent successfully");
-          } else {
-            alert("Failed to send email");
-          }
+          if (xhr.status === 200) alert("Email sent successfully"); 
+          else alert("Failed to send email");
         };
         xhr.onerror = () => {
           alert("Network error");

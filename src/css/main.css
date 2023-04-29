@@ -277,7 +277,7 @@ li {
 
 .appc {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   height: 70vh;
   width: 100vw;
   flex-direction: column;
@@ -301,8 +301,16 @@ li {
   display: none;
 }
 
+.progressXbutton {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 20%;
+}
+
 .border {
-  border: white 1px solid;
+  border: rgb(40, 40, 40) 1px solid;
   border-radius: 50px;
   width: 35rem;
 }
@@ -311,21 +319,13 @@ li {
   border-radius: 50px;
   height: 24px;
   width: 0%;
-  background: linear-gradient(
-      to right,
-      rgba(255, 0, 0, 1) 0%,
-      rgba(255, 154, 0, 1) 10%,
-      rgba(208, 222, 33, 1) 20%,
-      rgba(79, 220, 74, 1) 30%,
-      rgba(63, 218, 216, 1) 40%,
-      rgba(47, 201, 226, 1) 50%,
-      rgba(28, 127, 238, 1) 60%,
-      rgba(95, 21, 242, 1) 70%,
-      rgba(186, 12, 248, 1) 80%,
-      rgba(251, 7, 217, 1) 90%,
-      rgba(255, 0, 0, 1) 100%
-    )
-    0 0/200% 100%;
+  background: repeating-linear-gradient(
+    -45deg,
+    gray,
+    gray 20px,
+    black 20px,
+    black 40px
+  ) 300% 0/200% 400%;
   animation: a 10s linear infinite;
   transition: all 0.3s linear;
 }
@@ -350,35 +350,6 @@ input[type="file"]::file-selector-button {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.tidal .tidal_image {
-  width: 40px;
-  margin-right: 10px;
-  border-radius: 50%;
-}
-
-.tidal {
-  width: 27%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: -50px;
-}
-
-.tidal .current_duration {
-  margin-right: 10px;
-  min-width: 90px;
-}
-
-.tidal .tidal_title {
-  font-size: 18px;
-  color: whitesmoke;
-}
-
-.tidal .play_status {
-  width: 20px;
-  filter: invert(100);
 }
 
 .contact form input {
@@ -425,14 +396,14 @@ input[type="file"]::file-selector-button {
   }
 }
 
-/*@keyframes navbarMovement {
+@keyframes navbarMovement {
   from {
     height: 0px;
   }
   to {
     height: 60px;
   }
-}*/
+}
 
 @keyframes navpfpMovement {
   from {

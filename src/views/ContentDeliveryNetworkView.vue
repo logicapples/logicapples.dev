@@ -11,9 +11,7 @@
       <div class="dropbox"></div>
       <span class="fileText">File not selected</span>
     </div>
-    <div class="cdnupload" v-on:click="handleSubmit">
-      <span class="uploadText">Upload</span>
-    </div>
+    <div class="progressXbutton">
     <div class="progress">
       <div class="udetails">
         <span class="bytesRecieved">0</span>
@@ -24,6 +22,10 @@
         <div class="grey"></div>
       </div>
     </div>
+    <div class="cdnupload" v-on:click="handleSubmit">
+      <span class="uploadText">Upload</span>
+    </div>
+  </div>
   </div>
 </template>
 
@@ -109,9 +111,8 @@
         }
         const formData = new FormData();
         formData.append(0, input.files[0]);
-
         source = await new EventSource(
-          `https://logicapples.dev:8395/api/cdn/upload`
+          `${import.meta.env.VITE_SERVER_HOST}:${import.meta.env.VITE_SERVER_PORT}/api/cdn/upload`
         );
         source.addEventListener("message", e => {
           disabled = true;
@@ -121,11 +122,11 @@
           document.querySelector(".bytesExpected").innerHTML =
             Math.round((bytesExpected * 0.000001 + Number.EPSILON) * 100) /
               100 +
-            " Mb";
+            " MB";
           document.querySelector(".bytesRecieved").innerHTML =
             Math.round((bytesReceived * 0.000001 + Number.EPSILON) * 100) /
               100 +
-            " Mb";
+            " MB";
           document.querySelector(".uploadText").innerHTML = percentage + "%";
           document.querySelector(".grey").style.width = percentage + "%";
         });
@@ -133,12 +134,13 @@
         document.querySelector(".fileSize").innerHTML = "Uploading...";
         document.querySelector(".progress").style.opacity = "1";
 
-        const res = await fetch(`https://logicapples.dev:8395/api/cdn/upload`, {
+        const res = await fetch(`${import.meta.env.VITE_SERVER_HOST}:${import.meta.env.VITE_SERVER_PORT}/api/cdn/upload`, {
           method: "POST",
           body: formData,
         });
         const data = await res.json();
         if (!res.ok) {
+          console.log(data.error);
           document.querySelector(".error").innerHTML = data.error;
           document.querySelector(".error").style.display = "flex";
           setTimeout(() => {
@@ -155,7 +157,7 @@
           document.querySelector(".grey").style.width = "";
           document.querySelector(
             ".fileSize"
-          ).innerHTML = `Your file has been uploaded!\n<a class="smallink" href="https://cdn.logicapples.dev/${filename}" target="_blank">${filename}</a>`;
+          ).innerHTML = `Your file has been uploaded!\n<a class="smallink" href="${import.meta.env.VITE_SERVER_HOST}:${import.meta.env.VITE_SERVER_PORT}/${filename}" target="_blank">${filename}</a>`;
           document.querySelector(".fileText").innerHTML = "File not selected";
           document.querySelector(".progress").style.opacity = "0.2";
           document.getElementById("fileinput").value = "";
