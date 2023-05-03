@@ -112,7 +112,7 @@
         const formData = new FormData();
         formData.append(0, input.files[0]);
         source = await new EventSource(
-          `${process.env.VUE_APP_HOST}/upload`
+          `/api/cdn/upload`
         );
         source.addEventListener("message", e => {
           disabled = true;
@@ -134,7 +134,7 @@
         document.querySelector(".fileSize").innerHTML = "Uploading...";
         document.querySelector(".progress").style.opacity = "1";
 
-        const res = await fetch(`${process.env.VUE_APP_HOST}/upload`, {
+        const res = await fetch(`/api/cdn/upload`, {
           method: "POST",
           body: formData,
         });
@@ -157,7 +157,7 @@
           document.querySelector(".grey").style.width = "";
           document.querySelector(
             ".fileSize"
-          ).innerHTML = `Your file has been uploaded!\n<a class="smallink" href="${process.env.VUE_APP_HOST}/${filename}" target="_blank">${filename}</a>`;
+          ).innerHTML = `Your file has been uploaded!\n<a class="smallink" href="/api/cdn/${filename}" target="_blank">${filename}</a>`;
           document.querySelector(".fileText").innerHTML = "File not selected";
           document.querySelector(".progress").style.opacity = "0.2";
           document.getElementById("fileinput").value = "";
