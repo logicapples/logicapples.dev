@@ -29,7 +29,7 @@
       sendEmail() {
         const email = document.querySelector("#email").value, message = document.querySelector("#text").value;
         const xhr = new XMLHttpRequest();
-        xhr.open("POST", `${import.meta.env.VITE_SERVER_HOST}:${import.meta.env.VITE_SERVER_PORT}/contact/send`);
+        xhr.open("POST", `/api/cdn/contact/send`);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onload = () => {
           if (xhr.status === 200) alert("Email sent successfully"); 
