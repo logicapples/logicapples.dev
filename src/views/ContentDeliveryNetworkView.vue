@@ -12,27 +12,28 @@
       <span class="fileText">File not selected</span>
     </div>
     <div class="progressXbutton">
-    <div class="progress">
-      <div class="udetails">
-        <span class="bytesRecieved">0</span>
-        <p>/</p>
-        <span class="bytesExpected">0</span>
+      <div class="progress">
+        <div class="udetails">
+          <span class="bytesRecieved">0</span>
+          <p>/</p>
+          <span class="bytesExpected">0</span>
+        </div>
+        <div class="border">
+          <div class="grey"></div>
+        </div>
       </div>
-      <div class="border">
-        <div class="grey"></div>
+      <div class="cdnupload" v-on:click="handleSubmit">
+        <span class="uploadText">Upload</span>
       </div>
     </div>
-    <div class="cdnupload" v-on:click="handleSubmit">
-      <span class="uploadText">Upload</span>
-    </div>
-  </div>
   </div>
 </template>
 
 <script>
-  let source;
-  let disabled = false;
-  let filename;
+  let source,
+    disabled = false,
+    filename;
+  const api_endpoint = "/api/cdn";
 
   export default {
     mounted() {
@@ -74,8 +75,8 @@
         e.stopPropagation();
         e.preventDefault();
 
-        const dt = e.dataTransfer;
-        const files = dt.files;
+        const dt = e.dataTransfer,
+          files = dt.files;
 
         document.getElementById("fileinput").files = files;
         document.querySelector(".dropbox").style.border = "white solid 1px";
@@ -103,17 +104,14 @@
         if (!input.files[0]) {
           document.querySelector(".error").innerHTML = "No Files Recieved";
           document.querySelector(".error").style.display = "flex";
-          setTimeout(() => {
+          return setTimeout(() => {
             document.querySelector(".error").innerHTML = "";
             document.querySelector(".error").style.display = "none";
           }, 2000);
-          return;
         }
         const formData = new FormData();
         formData.append(0, input.files[0]);
-        source = await new EventSource(
-          `/api/cdn/upload`
-        );
+        source = await new EventSource(`${api_endpoint}/upload`);
         source.addEventListener("message", e => {
           disabled = true;
           const { bytesExpected, bytesReceived, percentage } = JSON.parse(
@@ -134,10 +132,10 @@
         document.querySelector(".fileSize").innerHTML = "Uploading...";
         document.querySelector(".progress").style.opacity = "1";
 
-        const res = await fetch(`/api/cdn/upload`, {
+        const res = await fetch(`${api_endpoint}/upload`, {
           method: "POST",
           headers: {
-            'Accept': '*/*',
+            Accept: "*/*",
           },
           body: formData,
         });
@@ -160,7 +158,7 @@
           document.querySelector(".grey").style.width = "";
           document.querySelector(
             ".fileSize"
-          ).innerHTML = `Your file has been uploaded!\n<a class="smallink" href="/api/cdn/files/${filename}" target="_blank">${filename}</a>`;
+          ).innerHTML = `Your file has been uploaded!\n<a class="smallink" href="${api_endpoint}/files/${filename}" target="_blank">${filename}</a>`;
           document.querySelector(".fileText").innerHTML = "File not selected";
           document.querySelector(".progress").style.opacity = "0.2";
           document.getElementById("fileinput").value = "";

@@ -27,12 +27,13 @@
   export default {
     methods: {
       sendEmail() {
-        const email = document.querySelector("#email").value, message = document.querySelector("#text").value;
+        const email = document.querySelector("#email").value,
+          message = document.querySelector("#text").value;
         const xhr = new XMLHttpRequest();
         xhr.open("POST", `/api/cdn/contact/send`);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onload = () => {
-          if (xhr.status === 200) alert("Email sent successfully"); 
+          if (xhr.status === 200) alert("Email sent successfully");
           else alert("Failed to send email");
         };
         xhr.onerror = () => {
