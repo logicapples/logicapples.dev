@@ -137,7 +137,7 @@
         const res = await fetch(`/api/cdn/upload`, {
           method: "POST",
           headers: {
-            "Content-Type": "multipart/form-data",
+            'Accept': '*/*',
           },
           body: formData,
         });
