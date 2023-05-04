@@ -160,7 +160,7 @@
           document.querySelector(".grey").style.width = "";
           document.querySelector(
             ".fileSize"
-          ).innerHTML = `Your file has been uploaded!\n<a class="smallink" href="/api/cdn/${filename}" target="_blank">${filename}</a>`;
+          ).innerHTML = `Your file has been uploaded!\n<a class="smallink" href="/api/cdn/files/${filename}" target="_blank">${filename}</a>`;
           document.querySelector(".fileText").innerHTML = "File not selected";
           document.querySelector(".progress").style.opacity = "0.2";
           document.getElementById("fileinput").value = "";
