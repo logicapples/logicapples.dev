@@ -4,10 +4,7 @@
   <div class="navspace">
     <div class="nav">
       <div class="title">
-        <img
-          class="navpfp"
-          src="https://images.unsplash.com/photo-1524856781660-e5c92f4ac62a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzB8fGZpcmUlMjBhbG1vc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60"
-          alt="pfp" />
+        <img class="navpfp" src="@/assets/logo.jpg" alt="pfp" />
         <h2>LogicApples</h2>
       </div>
       <div class="links">
@@ -19,7 +16,7 @@
         <img
           v-on:click="openBurgerMenu"
           class="burger-menu"
-          src="https://cdn-icons-png.flaticon.com/128/5259/5259008.png"
+          src="@/assets/menu.png"
           alt="burger" />
         <div class="linksInMenu">
           <div class="actual">

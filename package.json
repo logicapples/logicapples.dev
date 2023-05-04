@@ -1,6 +1,5 @@
 {
   "name": "logicapples.dev",
-  "proxy": "https://logicapples.dev:8395",
   "version": "0.0.1",
   "private": false,
   "scripts": {

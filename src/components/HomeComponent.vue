@@ -37,10 +37,7 @@
         </li>
       </div>
     </div>
-    <img
-      class="pfp"
-      src="https://images.unsplash.com/photo-1524856781660-e5c92f4ac62a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzB8fGZpcmUlMjBhbG1vc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60"
-      alt="pfp" />
+    <img class="pfp" src="@/assets/logo.jpg" alt="pfp" />
   </div>
 </template>
 
