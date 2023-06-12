@@ -32,7 +32,8 @@
 <script>
   let source,
     disabled = false,
-    filename;
+    filename,
+    done;
   const api_endpoint = "/api/cdn";
 
   export default {
@@ -112,11 +113,14 @@
         const formData = new FormData();
         formData.append(0, input.files[0]);
         source = await new EventSource(`${api_endpoint}/upload`);
+
         source.addEventListener("message", e => {
+          console.log(JSON.parse(e.data));
           disabled = true;
-          const { bytesExpected, bytesReceived, percentage } = JSON.parse(
+          const { bytesExpected, bytesReceived, percentage, isDone } = JSON.parse(
             e.data
           );
+          done = isDone;
           document.querySelector(".bytesExpected").innerHTML =
             Math.round((bytesExpected * 0.000001 + Number.EPSILON) * 100) /
               100 +
@@ -139,7 +143,7 @@
           },
           body: formData,
         });
-        const data = await res.json();
+        //const data = JSON.parse(await res.text());
         if (!res.ok) {
           console.log(data.error);
           document.querySelector(".error").innerHTML = data.error;
