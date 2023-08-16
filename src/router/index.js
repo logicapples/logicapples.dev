@@ -4,6 +4,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import ContactView from "../views/ContactView.vue";
 import ContentDeliveryNetworkView from "../views/ContentDeliveryNetworkView.vue";
+import priceGetterView from "../views/priceGetterView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +27,11 @@ const router = createRouter({
       path: "/cdn",
       name: "CDNetwork",
       component: ContentDeliveryNetworkView,
+    },
+    {
+      path: "/priceGetter",
+      name: "priceGetter",
+      component: priceGetterView,
     },
   ],
 });

@@ -117,9 +117,8 @@
         source.addEventListener("message", e => {
           console.log(JSON.parse(e.data));
           disabled = true;
-          const { bytesExpected, bytesReceived, percentage, isDone } = JSON.parse(
-            e.data
-          );
+          const { bytesExpected, bytesReceived, percentage, isDone } =
+            JSON.parse(e.data);
           done = isDone;
           document.querySelector(".bytesExpected").innerHTML =
             Math.round((bytesExpected * 0.000001 + Number.EPSILON) * 100) /
