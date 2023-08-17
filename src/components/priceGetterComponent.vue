@@ -3,7 +3,7 @@
 <script setup>
   import cheerio from "cheerio";
   import Product from "./Product.vue";
-  import ProductGetter from "../utilities/product-getter"
+  import ProductGetter from "../utilities/product-getter";
   const { data: value } = [{ name: "hi", price: 300 }];
 </script>
 
@@ -37,7 +37,7 @@
         is_data_fetched: false,
         finalListArray: [],
         cartEngaged: false,
-        cartTotal: 0
+        cartTotal: 0,
       };
     },
     methods: {
@@ -46,7 +46,7 @@
         const submitButton = document.getElementById("submitButton");
         const productGetter = new ProductGetter(searchBox.value);
         submitButton.innerText = "fetching html";
-        
+
         const products = await productGetter.getAllProducts();
 
         this.stuff = products;
@@ -54,12 +54,15 @@
         submitButton.innerText = "done";
       },
       addToList(product) {
-        this.finalListArray.push(this.stuff.filter(x => x.name === product.name));
+        this.finalListArray.push(
+          this.stuff.filter(x => x.name === product.name)
+        );
         console.log(this.finalListArray);
         this.finalListArray.forEach(x => {
           console.log(x[0].price.slice(0, -5).trim());
-          this.cartTotal = this.cartTotal + Number(x[0].price.slice(0, -5).trim())
-        })
+          this.cartTotal =
+            this.cartTotal + Number(x[0].price.slice(0, -5).trim());
+        });
         console.log(this.cartTotal);
         this.cartEngaged = true;
       },
@@ -74,7 +77,7 @@
     justify-content: center;
     align-items: center;
   }
-  
+
   .result-products {
     display: flex;
     width: 80%;

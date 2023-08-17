@@ -22,7 +22,7 @@
     width: 250px;
     cursor: pointer;
     outline: white solid 1px;
-    transition: all .3s ;
+    transition: all 0.3s;
   }
   .repo_container:hover {
     scale: 1.02;
