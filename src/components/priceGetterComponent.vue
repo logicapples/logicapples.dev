@@ -3,6 +3,7 @@
 <script setup>
   import cheerio from "cheerio";
   import Product from "./Product.vue";
+  import ProductGetter from "../utilities/product-getter"
   const { data: value } = [{ name: "hi", price: 300 }];
 </script>
 
@@ -13,12 +14,18 @@
       <input type="text" id="search-box" />
       <button id="submitButton" type="submit">submit</button>
     </form>
-    <Product
-      @click="addToList(one.id)"
-      v-for="one of stuff"
-      :name="one.name"
-      :price="one.price"
-      v-if="is_data_fetched" />
+    <div class="result-products">
+      <Product
+        @click="addToList(one)"
+        v-for="one of stuff"
+        :name="one.name"
+        :price="one.price"
+        :store="'mimovrste'"
+        v-if="is_data_fetched" />
+    </div>
+  </div>
+  <div class="cart">
+    <p id="cart-price" v-if="cartEngaged">{{ cartTotal }}</p>
   </div>
 </template>
 
@@ -29,39 +36,32 @@
         stuff: null,
         is_data_fetched: false,
         finalListArray: [],
+        cartEngaged: false,
+        cartTotal: 0
       };
     },
     methods: {
       async getSearch() {
         const searchBox = document.getElementById("search-box");
         const submitButton = document.getElementById("submitButton");
+        const productGetter = new ProductGetter(searchBox.value);
         submitButton.innerText = "fetching html";
-        const res = await fetch(
-          `https://cors-anywhere.herokuapp.com/https://www.mimovrste.com/iskanje?src=sug&s=${searchBox.value}&o=_price`
-        );
-        const html = await res.text();
-        submitButton.innerText = "parsing html";
-        const $ = cheerio.load(html);
+        
+        const products = await productGetter.getAllProducts();
 
-        const products = [];
-
-        $(".pbcr").each((i, child) => {
-          const id = i;
-          const name = child.children[3].children[0].children[0].data.trim();
-          const price =
-            child.children[6].children[5].children[0].children[0].data;
-          products.push({ id, name, price });
-        });
-
-        //const { data: value } = products;
-        //isLoaded = true;
-        this.stuff = products.slice(0, 2);
+        this.stuff = products;
         this.is_data_fetched = true;
         submitButton.innerText = "done";
       },
-      addToList(productId) {
-        this.finalListArray.push(this.stuff[productId]);
+      addToList(product) {
+        this.finalListArray.push(this.stuff.filter(x => x.name === product.name));
         console.log(this.finalListArray);
+        this.finalListArray.forEach(x => {
+          console.log(x[0].price.slice(0, -5).trim());
+          this.cartTotal = this.cartTotal + Number(x[0].price.slice(0, -5).trim())
+        })
+        console.log(this.cartTotal);
+        this.cartEngaged = true;
       },
     },
   };
@@ -71,5 +71,13 @@
   #searchdiv {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .result-products {
+    display: flex;
+    width: 80%;
+    flex-wrap: wrap;
   }
 </style>
