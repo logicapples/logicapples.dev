@@ -1,10 +1,9 @@
 <!-- @format -->
 
 <script setup>
-  import cheerio from "cheerio";
   import Product from "./Product.vue";
   import ProductGetter from "../utilities/product-getter";
-  const { data: value } = [{ name: "hi", price: 300 }];
+  import CartProduct from "./CartProduct.vue";
 </script>
 
 <template>
@@ -14,23 +13,38 @@
       <input type="text" id="search-box" />
       <button id="submitButton" type="submit">submit</button>
     </form>
+    <button @click="sortBy('PRICE')">price</button>
+    <button @click="sortBy('SIMILARITY')">similarity</button>
     <div class="result-products">
       <Product
         @click="addToList(one)"
         v-for="one of stuff"
         :name="one.name"
-        :price="one.price"
-        :store="'mimovrste'"
+        :price="one.productPrice"
+        :store="one.store"
+        :querySimilarity="one.querySimilarity"
         v-if="is_data_fetched" />
     </div>
   </div>
   <div class="cart">
-    <p id="cart-price" v-if="cartEngaged">{{ cartTotal }}</p>
+    <CartProduct
+      v-for="one of finalListArray"
+      :name="one.name"
+      :price="one.productPrice"
+      :store="one.store"
+      :listID="one.id"
+      v-if="cartEngaged" />
+    <p id="cart-price" v-if="cartEngaged">{{ cartTotal.toLocaleString() }}</p>
   </div>
 </template>
 
 <script>
   export default {
+    mounted() {
+      this.emitter.on("removeCartElementEvent", key => {
+        this.removeFromList(key);
+      });
+    },
     data() {
       return {
         stuff: null,
@@ -54,18 +68,39 @@
         submitButton.innerText = "done";
       },
       addToList(product) {
-        this.finalListArray.push(
-          this.stuff.filter(x => x.name === product.name)
-        );
-        console.log(this.finalListArray);
-        this.finalListArray.forEach(x => {
-          console.log(x[0].price.slice(0, -5).trim());
-          this.cartTotal =
-            this.cartTotal + Number(x[0].price.slice(0, -5).trim());
-        });
-        console.log(this.cartTotal);
         this.cartEngaged = true;
+        if (this.finalListArray.find(x => x.id === product.id)) return;
+        this.finalListArray.push(
+          this.stuff.filter(x => x.name === product.name)[0]
+        );
+        const productPrice = this.finalListArray.slice(-1)[0].productPrice;
+        this.cartTotal = this.cartTotal + productPrice;
       },
+      removeFromList(key) {
+        const productPrice = this.finalListArray.filter(
+          item => item.id === key
+        )[0].productPrice;
+        this.finalListArray = this.finalListArray.filter(
+          item => item.id !== key
+        );
+        this.cartTotal = this.cartTotal - productPrice;
+        if (this.finalListArray.length < 1) {
+          this.cartEngaged = false;
+          this.cartTotal = 0;
+        }
+      },
+      sortBy(method) {
+        switch (method) {
+          case "SIMILARITY":
+            this.stuff.sort((a, b) => {return a.querySimilarity - b.querySimilarity}).reverse()
+            break;
+          case "PRICE":
+            this.stuff.sort((a, b) => {return a.productPrice - b.productPrice});
+            break;
+          default:
+            break;
+        }
+      }
     },
   };
 </script>
@@ -81,6 +116,14 @@
   .result-products {
     display: flex;
     width: 80%;
+    justify-content: center;
     flex-wrap: wrap;
+  }
+
+  .cart {
+    position: absolute;
+    bottom: 60px;
+    height: 60px;
+    width: 100%;
   }
 </style>

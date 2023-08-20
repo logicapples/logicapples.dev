@@ -29,6 +29,11 @@
 
 <script>
   export default {
+    data() {
+      return {
+        currentYear: new Date().getFullYear(),
+      };
+    },
     methods: {
       changeTheme() {
         document.querySelector(".myswitch").addEventListener("change", e => {

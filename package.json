@@ -9,7 +9,10 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
     "dotenv": "^16.0.3",
+    "mitt": "^3.0.1",
+    "string-comparison": "^1.1.0",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"
   },

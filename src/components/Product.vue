@@ -1,37 +1,51 @@
 <!-- @format -->
 
 <template>
-  <div class="repo_container">
+  <div class="product_container">
     <div id="flexDiv">
       <p id="name">{{ name }}</p>
-      <p id="price">{{ price }}</p>
-      <p id="store">{{ store }}</p>
+      <div id="details">
+        <p id="store">{{ store }}</p>
+        <p id="querySimilarity">{{ querySimilarity }}</p>
+        <p id="price">{{ price.toLocaleString() + " €" }}</p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
   export default {
-    props: ["name", "price", "store"],
+    props: ["name", "price", "store", "querySimilarity"],
   };
 </script>
 
 <style scoped>
-  .repo_container {
-    height: 250px;
-    width: 250px;
+  .product_container {
+    height: 50px;
+    width: 80%;
     cursor: pointer;
     outline: white solid 1px;
-    transition: all 0.3s;
+    transition: all 0.2s;
   }
-  .repo_container:hover {
+  .product_container:hover {
+    background-color: aliceblue;
     scale: 1.02;
     outline: none;
   }
 
   #flexDiv {
+    padding-left: 20px;
     display: flex;
-    flex-direction: column;
     height: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  #details {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding-right: 20px;
+    width: 20%;
   }
 </style>
