@@ -92,15 +92,21 @@
       sortBy(method) {
         switch (method) {
           case "SIMILARITY":
-            this.stuff.sort((a, b) => {return a.querySimilarity - b.querySimilarity}).reverse()
+            this.stuff
+              .sort((a, b) => {
+                return a.querySimilarity - b.querySimilarity;
+              })
+              .reverse();
             break;
           case "PRICE":
-            this.stuff.sort((a, b) => {return a.productPrice - b.productPrice});
+            this.stuff.sort((a, b) => {
+              return a.productPrice - b.productPrice;
+            });
             break;
           default:
             break;
         }
-      }
+      },
     },
   };
 </script>

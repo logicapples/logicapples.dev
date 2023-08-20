@@ -3,15 +3,22 @@
   "version": "0.0.1",
   "private": false,
   "scripts": {
+    "pretty": "prettier --config .prettierrc.yml -c . -w .",
     "dev": "prettier --config .prettierrc.yml -c . -w . && vite",
     "build": "prettier --config .prettierrc.yml -c . -w . && vite build",
     "preview": "prettier --config .prettierrc.yml -c . -w . && vite preview",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "precommit-msg": "echo 'Pre-commit checks...' && exit 0"
   },
+  "pre-commit": [
+    "precommit-msg",
+    "pretty"
+  ],
   "dependencies": {
     "cheerio": "^1.0.0-rc.12",
     "dotenv": "^16.0.3",
     "mitt": "^3.0.1",
+    "pre-commit": "^1.2.2",
     "string-comparison": "^1.1.0",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"
