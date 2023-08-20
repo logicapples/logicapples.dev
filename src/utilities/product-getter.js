@@ -30,7 +30,7 @@ export default class ProductGetter {
 
   async fetchMimovrste() {
     const res = await fetch(
-      `https://cors-anywhere.herokuapp.com/https://www.mimovrste.com/iskanje?src=sug&s=${this.searchQuery}&o=_price`
+      `https://www.mimovrste.com/iskanje?src=sug&s=${this.searchQuery}&o=_price`
     );
     const html = await res.text();
     const $ = load(html);
@@ -51,7 +51,7 @@ export default class ProductGetter {
 
   async fetchFuntech() {
     const res = await fetch(
-      `https://cors-anywhere.herokuapp.com/https://www.funtech.si/si/iskalnik/?search_company=10043&squery=${this.searchQuery}&sf_price=1&activeSort=sf_price`
+      `https://www.funtech.si/si/iskalnik/?search_company=10043&squery=${this.searchQuery}&sf_price=1&activeSort=sf_price`
     );
     const html = await res.text();
     const $ = load(html);
