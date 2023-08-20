@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": false,
   "scripts": {
+    "addall": "git add .",
     "pretty": "prettier --config .prettierrc.yml -c . -w .",
     "dev": "prettier --config .prettierrc.yml -c . -w . && vite",
     "build": "prettier --config .prettierrc.yml -c . -w . && vite build",
@@ -11,6 +12,7 @@
     "precommit-msg": "echo 'Pre-commit checks...' && exit 0"
   },
   "pre-commit": [
+    "addall",
     "precommit-msg",
     "pretty"
   ],
