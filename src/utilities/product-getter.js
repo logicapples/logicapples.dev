@@ -22,21 +22,15 @@ export default class ProductGetter {
     //this.mimovrsteProducts = this.mimovrsteProducts.slice(0, 4);
     //this.funtechProducts = this.funtechProducts.slice(0, 4);
     this.products = [...this.funtechProducts, ...this.mimovrsteProducts];
-    this.products = this.products
-      .sort((a, b) => {
-        return a.querySimilarity - b.querySimilarity;
-      })
-      .reverse();
-    this.products = this.products.sort((a, b) => {
-      return a.productPrice - b.productPrice;
-    });
-
+    this.products = this.products.sort((a, b) => {return a.querySimilarity - b.querySimilarity}).reverse()
+    this.products = this.products.sort((a, b) => {return a.productPrice - b.productPrice});
+    
     return this.products.slice(0, 15);
   }
 
   async fetchMimovrste() {
     const res = await fetch(
-      `https://www.mimovrste.com/iskanje?src=sug&s=${this.searchQuery}&o=_price`
+      `https://cors-anywhere.herokuapp.com/https://www.mimovrste.com/iskanje?src=sug&s=${this.searchQuery}&o=_price`
     );
     const html = await res.text();
     const $ = load(html);
@@ -50,20 +44,14 @@ export default class ProductGetter {
       );
       const store = Stores.MIMOVRSTE;
       const id = child.attribs.id;
-      const querySimilarity = levenshtein.distance(name, this.searchQuery);
-      this.mimovrsteProducts.push({
-        name,
-        productPrice,
-        store,
-        id,
-        querySimilarity,
-      });
+      const querySimilarity = levenshtein.distance(name, this.searchQuery)
+      this.mimovrsteProducts.push({ name, productPrice, store, id, querySimilarity});
     });
   }
 
   async fetchFuntech() {
     const res = await fetch(
-      `https://www.funtech.si/si/iskalnik/?search_company=10043&squery=${this.searchQuery}&sf_price=1&activeSort=sf_price`
+      `https://cors-anywhere.herokuapp.com/https://www.funtech.si/si/iskalnik/?search_company=10043&squery=${this.searchQuery}&sf_price=1&activeSort=sf_price`
     );
     const html = await res.text();
     const $ = load(html);
@@ -82,14 +70,8 @@ export default class ProductGetter {
           const productPrice = Number(
             stringPrice.slice(0, -1).trim().replace(/\./g, "").replace(",", ".")
           );
-          const querySimilarity = levenshtein.distance(name, this.searchQuery);
-          this.funtechProducts.push({
-            name,
-            productPrice,
-            store,
-            id,
-            querySimilarity,
-          });
+          const querySimilarity = levenshtein.distance(name, this.searchQuery)
+          this.funtechProducts.push({ name, productPrice, store, id, querySimilarity });
         });
       });
     });
