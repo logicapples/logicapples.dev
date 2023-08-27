@@ -15,4 +15,6 @@ app.use(router);
 
 app.config.globalProperties.emitter = emitter;
 
+export const useGlobals = () => app.config.globalProperties;
+
 app.mount("#app");

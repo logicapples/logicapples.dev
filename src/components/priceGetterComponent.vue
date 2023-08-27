@@ -8,7 +8,7 @@
 
 <template>
   <div id="searchdiv">
-    <form @submit.prevent="getSearch">
+    <form @submit.prevent="getSearch" id="searchForm">
       <label> Search for stuff </label>
       <input type="text" id="search-box" />
       <button id="submitButton" type="submit">submit</button>
@@ -44,6 +44,9 @@
       this.emitter.on("removeCartElementEvent", key => {
         this.removeFromList(key);
       });
+      this.emitter.on("searchButtonTextChange", text => {
+        document.getElementById("submitButton").innerText = text;
+      });
     },
     data() {
       return {
@@ -58,10 +61,10 @@
       async getSearch() {
         const searchBox = document.getElementById("search-box");
         const submitButton = document.getElementById("submitButton");
-        const productGetter = new ProductGetter(searchBox.value);
+        const productGetter = new ProductGetter();
         submitButton.innerText = "fetching html";
 
-        const products = await productGetter.getAllProducts();
+        const products = await productGetter.getAllProducts(searchBox.value);
 
         this.stuff = products;
         this.is_data_fetched = true;
@@ -112,11 +115,15 @@
 </script>
 
 <style scoped>
-  #searchdiv {
+  #searchDiv {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+
+  #searchForm {
+    display: flex;
+    width: 520px;
   }
 
   .result-products {
