@@ -11,7 +11,9 @@
     <form @submit.prevent="getSearch" id="searchForm">
       <label> Search for stuff </label>
       <input type="text" id="search-box" />
-      <button id="submitButton" type="submit">submit</button>
+      <button id="submitButton" type="submit">
+        Search
+      </button>
     </form>
     <button @click="sortBy('PRICE')">price</button>
     <button @click="sortBy('SIMILARITY')">similarity</button>
@@ -62,6 +64,9 @@
         const searchBox = document.getElementById("search-box");
         const submitButton = document.getElementById("submitButton");
         const productGetter = new ProductGetter();
+        this.is_data_fetched = false;
+        document.getElementById("submitButton").disabled = true;
+
         submitButton.innerText = "fetching html";
 
         const products = await productGetter.getAllProducts(searchBox.value);
@@ -69,6 +74,7 @@
         this.stuff = products;
         this.is_data_fetched = true;
         submitButton.innerText = "done";
+        submitButton.disabled = false;
       },
       addToList(product) {
         this.cartEngaged = true;
@@ -139,4 +145,23 @@
     height: 60px;
     width: 100%;
   }
+
+  .loader {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: spin 1s linear infinite;
+  display: none;
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
 </style>

@@ -42,8 +42,10 @@ export default class ProductGetter {
       `Fetching ${Stores.MIMOVRSTE} | 4/4`
     );
     await this.fetchMimovrste();
-    //this.mimovrsteProducts = this.mimovrsteProducts.slice(0, 4);
-    //this.funtechProducts = this.funtechProducts.slice(0, 4);
+
+    //blokada
+    this.mimovrsteProducts = this.mimovrsteProducts.slice(0, 4);
+    
     this.products = [
       ...this.funtechProducts,
       ...this.mimovrsteProducts,
@@ -58,7 +60,7 @@ export default class ProductGetter {
     this.products = this.products.sort((a, b) => {
       return a.productPrice - b.productPrice;
     });
-
+    console.log(this.products.forEach(p => console.log(p.name)));
     return this.products.slice(0, 15);
   }
 
@@ -96,29 +98,22 @@ export default class ProductGetter {
     const html = await res.text();
     const $ = load(html);
 
-    $(".artikli_vrstica2").each((i, child) => {
-      child.children.forEach(child => {
-        if (!child.attribs) return;
-        child.children.forEach(child => {
-          if (!child.attribs) return;
-          const name = child.children[1].children[1].children[0].data;
-          const store = Stores.FUNTECH;
-          const id =
-            child.children[9].children[1].attribs.href.match(/([1-9])\w+/g)[0];
-          const stringPrice =
-            child.children[7].children[1].children[3].children[0].data;
-          const productPrice = Number(
-            stringPrice.slice(0, -1).trim().replace(/\./g, "").replace(",", ".")
-          );
-          const querySimilarity = levenshtein.distance(name, this.searchQuery);
-          this.funtechProducts.push({
-            name,
-            productPrice,
-            store,
-            id,
-            querySimilarity,
-          });
-        });
+    $(".artikel_podlaga").each((i, child) => {
+      const $sec = load(child);
+      const name = $sec(".artikel_naslov")[0].children[0].data
+      const store = Stores.FUNTECH
+      const id = $sec("a")[0].attribs.href.match(/\/(\d+)\//)[1]
+      const stringPrice = $sec(".cena_desno")[0] ? $sec(".cena_desno")[0].children[0].data : "0 €"
+      const productPrice = Number(
+        stringPrice.slice(0, -5).trim().replace(/\./g, "").replace(",", ".")
+      );
+      const querySimilarity = levenshtein.distance(name, this.searchQuery);
+      this.funtechProducts.push({
+        name,
+        productPrice,
+        store,
+        id,
+        querySimilarity,
       });
     });
   }
@@ -181,7 +176,7 @@ export default class ProductGetter {
       const productPrice = Number(
         stringPrice.slice(0, -1).trim().replace(/\./g, "").replace(",", ".")
       );
-      const id = 1;
+      const id = $sec(".add_to_cart_button")[0].attribs["data-product_id"];
       const querySimilarity = levenshtein.distance(name, this.searchQuery);
       this.extremeDigitalProducts.push({
         name,
