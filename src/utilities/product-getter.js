@@ -45,7 +45,7 @@ export default class ProductGetter {
 
     //blokada
     this.mimovrsteProducts = this.mimovrsteProducts.slice(0, 4);
-    
+
     this.products = [
       ...this.funtechProducts,
       ...this.mimovrsteProducts,
@@ -100,10 +100,12 @@ export default class ProductGetter {
 
     $(".artikel_podlaga").each((i, child) => {
       const $sec = load(child);
-      const name = $sec(".artikel_naslov")[0].children[0].data
-      const store = Stores.FUNTECH
-      const id = $sec("a")[0].attribs.href.match(/\/(\d+)\//)[1]
-      const stringPrice = $sec(".cena_desno")[0] ? $sec(".cena_desno")[0].children[0].data : "0 €"
+      const name = $sec(".artikel_naslov")[0].children[0].data;
+      const store = Stores.FUNTECH;
+      const id = $sec("a")[0].attribs.href.match(/\/(\d+)\//)[1];
+      const stringPrice = $sec(".cena_desno")[0]
+        ? $sec(".cena_desno")[0].children[0].data
+        : "0 €";
       const productPrice = Number(
         stringPrice.slice(0, -5).trim().replace(/\./g, "").replace(",", ".")
       );
