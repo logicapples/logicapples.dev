@@ -3,17 +3,11 @@
   "version": "0.0.1",
   "private": false,
   "scripts": {
-    "pretty": "prettier --config .prettierrc.yml -c . -w .",
     "dev": "prettier --config .prettierrc.yml -c . -w . && vite",
     "build": "prettier --config .prettierrc.yml -c . -w . && vite build",
     "preview": "prettier --config .prettierrc.yml -c . -w . && vite preview",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
-    "precommit-msg": "echo 'Pre-commit checks...' && exit 0"
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
-  "pre-commit": [
-    "precommit-msg",
-    "pretty"
-  ],
   "dependencies": {
     "cheerio": "^1.0.0-rc.12",
     "dotenv": "^16.0.3",
