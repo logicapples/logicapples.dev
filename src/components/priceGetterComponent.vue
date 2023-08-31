@@ -65,9 +65,9 @@
         const loadingCircle = document.querySelector(".loadingCircle");
         const productGetter = new ProductGetter();
         this.is_data_fetched = false;
-        if (!searchBox.value) 
-          return submitButton.innerText = "No search query provided!";
-        
+        if (!searchBox.value)
+          return (submitButton.innerText = "No search query provided!");
+
         document.getElementById("submitButton").disabled = true;
         loadingCircle.style.display = "flex";
         const products = await productGetter.getAllProducts(searchBox.value);
@@ -155,7 +155,7 @@
     width: 25px;
     height: 25px;
     box-shadow: 6px 0px 5px 1px #3498db inset;
-    animation: spin .6s linear infinite;
+    animation: spin 0.6s linear infinite;
     display: none;
   }
 
