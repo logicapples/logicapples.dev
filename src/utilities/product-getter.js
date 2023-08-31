@@ -20,7 +20,6 @@ export default class ProductGetter {
   }
 
   async getAllProducts(searchQuery) {
-    if (!searchQuery) throw new Error("No search query provided!");
     this.searchQuery = searchQuery;
 
     const { emitter } = useGlobals();
@@ -44,7 +43,7 @@ export default class ProductGetter {
     await this.fetchMimovrste();
 
     //blokada
-    this.mimovrsteProducts = this.mimovrsteProducts.slice(0, 4);
+    //this.mimovrsteProducts = this.mimovrsteProducts.slice(0, 4);
 
     this.products = [
       ...this.funtechProducts,
@@ -60,7 +59,6 @@ export default class ProductGetter {
     this.products = this.products.sort((a, b) => {
       return a.productPrice - b.productPrice;
     });
-    console.log(this.products.forEach(p => console.log(p.name)));
     return this.products.slice(0, 15);
   }
 
@@ -164,7 +162,7 @@ export default class ProductGetter {
       const $sec = load(child);
       if (
         $sec(".items")[0].children[1].children[0].children[0].children[0]
-          .children[0].data == "Odkupimo"
+          .children[0].data == "Odkupimo" || !$sec(".price")[0]
       )
         return;
       const name = $sec(".product-title")[0].children[1].children[0].data;

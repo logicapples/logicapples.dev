@@ -12,6 +12,7 @@
       <label> Search for stuff </label>
       <input type="text" id="search-box" />
       <button id="submitButton" type="submit"> Search </button>
+      <div class="loadingCircle"></div>
     </form>
     <button @click="sortBy('PRICE')">price</button>
     <button @click="sortBy('SIMILARITY')">similarity</button>
@@ -61,17 +62,20 @@
       async getSearch() {
         const searchBox = document.getElementById("search-box");
         const submitButton = document.getElementById("submitButton");
+        const loadingCircle = document.querySelector(".loadingCircle");
         const productGetter = new ProductGetter();
         this.is_data_fetched = false;
+        if (!searchBox.value) 
+          return submitButton.innerText = "No search query provided!";
+        
         document.getElementById("submitButton").disabled = true;
-
-        submitButton.innerText = "fetching html";
-
+        loadingCircle.style.display = "flex";
         const products = await productGetter.getAllProducts(searchBox.value);
 
         this.stuff = products;
         this.is_data_fetched = true;
         submitButton.innerText = "done";
+        loadingCircle.style.display = "none";
         submitButton.disabled = false;
       },
       addToList(product) {
@@ -144,26 +148,23 @@
     width: 100%;
   }
 
-  .loader {
-    border: 4px solid rgba(0, 0, 0, 0.1);
-    border-top: 4px solid #3498db;
+  .loadingCircle {
+    border: 4px solid rgba(0, 0, 0, 0.4);
+    border-right: 4px solid rgba(0, 0, 0, 0.2);
     border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation: spin 1s linear infinite;
+    width: 25px;
+    height: 25px;
+    box-shadow: 6px 0px 5px 1px #3498db inset;
+    animation: spin .6s linear infinite;
     display: none;
   }
 
   @keyframes spin {
     0% {
-      transform: translate(-50%, -50%) rotate(0deg);
+      transform: rotate(0deg);
     }
     100% {
-      transform: translate(-50%, -50%) rotate(360deg);
+      transform: rotate(360deg);
     }
   }
 </style>
