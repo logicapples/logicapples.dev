@@ -5,5 +5,14 @@
 </script>
 
 <template>
-  <priceGetterComponent />
+  <div class="yeah">
+    <priceGetterComponent />
+  </div>
 </template>
+
+<style scoped>
+  .yeah {
+    position: absolute;
+    top: 70px;
+  }
+</style>

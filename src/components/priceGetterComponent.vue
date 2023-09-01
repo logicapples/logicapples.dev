@@ -22,7 +22,7 @@
         v-for="one of stuff"
         :name="one.name"
         :price="one.productPrice"
-        :store="one.store"
+        :store="one.displayStore"
         :querySimilarity="one.querySimilarity"
         v-if="is_data_fetched" />
     </div>
@@ -45,8 +45,10 @@
       this.emitter.on("removeCartElementEvent", key => {
         this.removeFromList(key);
       });
-      this.emitter.on("searchButtonTextChange", text => {
+      this.emitter.on("searchButtonTextChange", ({text, degrees}) => {
         document.getElementById("submitButton").innerText = text;
+        console.log(text, degrees);
+        document.querySelector(".loadingCircle").style.backgroundImage = `conic-gradient(orange ${degrees}deg, black 0deg)`
       });
     },
     data() {
@@ -149,22 +151,11 @@
   }
 
   .loadingCircle {
-    border: 4px solid rgba(0, 0, 0, 0.4);
-    border-right: 4px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.6);
     border-radius: 50%;
     width: 25px;
     height: 25px;
-    box-shadow: 6px 0px 5px 1px #3498db inset;
-    animation: spin 0.6s linear infinite;
     display: none;
-  }
-
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
+    background-image: conic-gradient(orange 0deg, black 0deg);
   }
 </style>
