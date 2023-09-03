@@ -45,10 +45,12 @@
       this.emitter.on("removeCartElementEvent", key => {
         this.removeFromList(key);
       });
-      this.emitter.on("searchButtonTextChange", ({text, degrees}) => {
+      this.emitter.on("searchButtonTextChange", ({ text, degrees }) => {
         document.getElementById("submitButton").innerText = text;
         console.log(text, degrees);
-        document.querySelector(".loadingCircle").style.backgroundImage = `conic-gradient(orange ${degrees}deg, black 0deg)`
+        document.querySelector(
+          ".loadingCircle"
+        ).style.backgroundImage = `conic-gradient(orange ${degrees}deg, black 0deg)`;
       });
     },
     data() {

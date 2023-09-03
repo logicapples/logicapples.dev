@@ -29,46 +29,40 @@ export default class ProductGetter {
   async getAllProducts(searchQuery) {
     const { emitter } = useGlobals();
 
-    emitter.emit(
-        "searchButtonTextChange",
-        {
-          text: `Fetching ${mimovrste.store.MIMOVRSTE} | 1/6`,
-          degrees: "60"
-        }
-    );
+    emitter.emit("searchButtonTextChange", {
+      text: `Fetching ${mimovrste.store.MIMOVRSTE} | 1/6`,
+      degrees: "60",
+    });
     await mimovrste.fetchProducts(searchQuery);
-    
-    emitter.emit("searchButtonTextChange", {text:`Fetching ${funtech.store.FUNTECH} | 2/6`, degrees:"120"});
+
+    emitter.emit("searchButtonTextChange", {
+      text: `Fetching ${funtech.store.FUNTECH} | 2/6`,
+      degrees: "120",
+    });
     await funtech.fetchProducts(searchQuery);
-    
-    emitter.emit(
-      "searchButtonTextChange",
-      {
-        text: `Fetching ${eDigital.store.EXTREME_DIGITAL} | 3/6`,
-        degrees: "180"
-      }
-    );
+
+    emitter.emit("searchButtonTextChange", {
+      text: `Fetching ${eDigital.store.EXTREME_DIGITAL} | 3/6`,
+      degrees: "180",
+    });
     await eDigital.fetchProducts(searchQuery);
-    
-    emitter.emit(
-      "searchButtonTextChange",
-      {text: `Fetching ${komponentko.store.KOMPONENTKO} | 4/6`,
-      degrees: "240"}
-    );
+
+    emitter.emit("searchButtonTextChange", {
+      text: `Fetching ${komponentko.store.KOMPONENTKO} | 4/6`,
+      degrees: "240",
+    });
     await komponentko.fetchProducts(searchQuery);
-    
-    emitter.emit(
-      "searchButtonTextChange",
-      {text:`Fetching ${anni.store.ANNI} | 5/6`,
-      degrees: "300"}
-    );
+
+    emitter.emit("searchButtonTextChange", {
+      text: `Fetching ${anni.store.ANNI} | 5/6`,
+      degrees: "300",
+    });
     await anni.fetchProducts(searchQuery);
-    
-    emitter.emit(
-      "searchButtonTextChange",
-      {text:`Fetching ${eIgre.store.EIGRE} | 6/6`,
-      degrees: "360"}
-    );
+
+    emitter.emit("searchButtonTextChange", {
+      text: `Fetching ${eIgre.store.EIGRE} | 6/6`,
+      degrees: "360",
+    });
     await eIgre.fetchProducts(searchQuery);
 
     //blokada
