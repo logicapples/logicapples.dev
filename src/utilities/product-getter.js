@@ -71,6 +71,13 @@ export default class ProductGetter {
     );
     await eIgre.fetchProducts(searchQuery);
 
+    const illustrations = require.context(
+  '@/utilities/stores',
+  true,
+  /^.*\.js$/
+    )
+    console.log(illustrations.keys())
+
     //blokada
     //mimovrste.products = mimovrste.products.slice(0, 4);
 
