@@ -9,7 +9,10 @@ const store = {
 };
 
 const fetchProducts = async searchQuery => {
-  const res = await fetch(
+  const url =
+    "https://anni.si/search?search_query=${searchQuery}&submit_search=&orderby=price&orderway=asc";
+  const res = await fetch(`/api/cdn/fetchUrl?url=${url}`);
+  const resf = await fetch(
     `https://cors-anywhere.herokuapp.com/https://anni.si/search?search_query=${searchQuery}&submit_search=&orderby=price&orderway=asc`
   );
   const html = await res.text();
