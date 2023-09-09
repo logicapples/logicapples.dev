@@ -1,7 +1,7 @@
 /** @format */
 
 import { load } from "cheerio";
-import { levenshtein } from "string-comparison";
+//import { levenshtein } from "string-comparison";
 
 const products = [];
 const store = {
@@ -9,9 +9,11 @@ const store = {
 };
 
 const fetchProducts = async searchQuery => {
-  const res = await fetch(
-    `https://cors-anywhere.herokuapp.com/https://www.funtech.si/si/iskalnik/?search_company=10043&squery=${searchQuery}&sf_price=1&activeSort=sf_price`
-  );
+  const url = `https://www.funtech.si/si/iskalnik/?search_company=10043&squery=${searchQuery}&sf_price=1&activeSort=sf_price`;
+  const res = await fetch(`/api/cdn/fetchUrl?url=${url}`);
+  //const resf = await fetch(
+  //  `https://cors-anywhere.herokuapp.com/https://www.funtech.si/si/iskalnik/?search_company=10043&squery=${searchQuery}&sf_price=1&activeSort=sf_price`
+  //);
   const html = await res.text();
   const $ = load(html);
 
@@ -26,13 +28,13 @@ const fetchProducts = async searchQuery => {
     const productPrice = Number(
       stringPrice.slice(0, -5).trim().replace(/\./g, "").replace(",", ".")
     );
-    const querySimilarity = levenshtein.distance(name, searchQuery);
+    //const querySimilarity = levenshtein.distance(name, searchQuery);
     products.push({
       name,
       productPrice,
       displayStore,
       id,
-      querySimilarity,
+      //querySimilarity,
     });
   });
 };

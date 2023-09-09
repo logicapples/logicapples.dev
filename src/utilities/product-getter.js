@@ -1,7 +1,5 @@
 /** @format */
 
-import { load } from "cheerio";
-import { levenshtein } from "string-comparison";
 import { useGlobals } from "../main.js";
 
 import mimovrste from "@/utilities/stores/MIMOVRSTE";

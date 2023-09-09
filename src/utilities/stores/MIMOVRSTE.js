@@ -1,7 +1,7 @@
 /** @format */
 
 import { load } from "cheerio";
-import { levenshtein } from "string-comparison";
+//import { levenshtein } from "string-comparison";
 
 const products = [];
 const store = {
@@ -9,9 +9,12 @@ const store = {
 };
 
 const fetchProducts = async searchQuery => {
-  const res = await fetch(
-    `https://cors-anywhere.herokuapp.com/https://www.mimovrste.com/iskanje?src=sug&s=${searchQuery}&o=_price`
-  );
+  const url = `https://www.mimovrste.com/iskanje?src=sug&s=${searchQuery}&o=_price`;
+  const res = await fetch(`/api/cdn/fetchUrl?url=${url}`);
+  //const resf = await fetch(
+  //  `https://cors-anywhere.herokuapp.com/https://www.mimovrste.com/iskanje?src=sug&s=${searchQuery}&o=_price`
+  //);
+  console.log(res);
   const html = await res.text();
   const $ = load(html);
 
@@ -24,13 +27,13 @@ const fetchProducts = async searchQuery => {
     );
     const displayStore = store.MIMOVRSTE;
     const id = child.attribs.id;
-    const querySimilarity = levenshtein.distance(name, searchQuery);
+    //const querySimilarity = levenshtein.distance(name, searchQuery);
     products.push({
       name,
       productPrice,
       displayStore,
       id,
-      querySimilarity,
+      //querySimilarity,
     });
   });
 };

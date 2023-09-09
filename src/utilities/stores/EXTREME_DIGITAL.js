@@ -1,7 +1,7 @@
 /** @format */
 
 import { load } from "cheerio";
-import { levenshtein } from "string-comparison";
+//import { levenshtein } from "string-comparison";
 
 const products = [];
 const store = {
@@ -9,9 +9,11 @@ const store = {
 };
 
 const fetchProducts = async searchQuery => {
-  const res = await fetch(
-    `https://cors-anywhere.herokuapp.com/https://edigital.si/search?product%5Bsearch%5D=${searchQuery}&product%5Border%5D=cheapest`
-  );
+  const url = `https://edigital.si/search?product%5Bsearch%5D=${searchQuery}&product%5Border%5D=cheapest`;
+  const res = await fetch(`/api/cdn/fetchUrl?url=${url}`);
+  //const resf = await fetch(
+  //  `https://cors-anywhere.herokuapp.com/https://edigital.si/search?product%5Bsearch%5D=${searchQuery}&product%5Border%5D=cheapest`
+  //);
   const html = await res.text();
   const $ = load(html);
 
@@ -28,13 +30,13 @@ const fetchProducts = async searchQuery => {
     const id =
       child.children[0].children[2].children[7].children[1].children[1]
         .children[0].data;
-    const querySimilarity = levenshtein.distance(name, searchQuery);
+    //const querySimilarity = levenshtein.distance(name, searchQuery);
     products.push({
       name,
       productPrice,
       displayStore,
       id,
-      querySimilarity,
+      //querySimilarity,
     });
   });
 };

@@ -1,7 +1,7 @@
 /** @format */
 
 import { load } from "cheerio";
-import { levenshtein } from "string-comparison";
+//import { levenshtein } from "string-comparison";
 
 const products = [];
 const store = {
@@ -9,9 +9,11 @@ const store = {
 };
 
 const fetchProducts = async searchQuery => {
-  const res = await fetch(
-    `https://cors-anywhere.herokuapp.com/https://komponentko.si/?s=${searchQuery}&post_type=product&et_search=true&orderby=price`
-  );
+  const url = `https://komponentko.si/?s=${searchQuery}&post_type=product&et_search=true&orderby=price`;
+  const res = await fetch(`/api/cdn/fetchUrl?url=${url}`);
+  //const resf = await fetch(
+  //  `https://cors-anywhere.herokuapp.com/https://komponentko.si/?s=${searchQuery}&post_type=product&et_search=true&orderby=price`
+  //);
   const html = await res.text();
   const $ = load(html);
 
@@ -34,13 +36,13 @@ const fetchProducts = async searchQuery => {
       stringPrice.slice(0, -1).trim().replace(/\./g, "").replace(",", ".")
     );
     const id = $sec(".add_to_cart_button")[0].attribs["data-product_id"];
-    const querySimilarity = levenshtein.distance(name, searchQuery);
+    //const querySimilarity = levenshtein.distance(name, searchQuery);
     products.push({
       name,
       productPrice,
       displayStore,
       id,
-      querySimilarity,
+      //querySimilarity,
     });
   });
 };

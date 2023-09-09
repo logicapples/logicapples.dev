@@ -13,3 +13,13 @@
     <Footer />
   </div>
 </template>
+
+<script>
+  export default {
+    async mounted() {
+      await fetch(
+        "http://localhost:8080/fetchJson?url=https://api.ipify.org?format=json"
+      );
+    }
+  }
+</script>

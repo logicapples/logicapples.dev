@@ -1,7 +1,7 @@
 /** @format */
 
 import { load } from "cheerio";
-import { levenshtein } from "string-comparison";
+//import { levenshtein } from "string-comparison";
 
 const products = [];
 const store = {
@@ -9,9 +9,11 @@ const store = {
 };
 
 const fetchProducts = async searchQuery => {
-  const res = await fetch(
-    `https://cors-anywhere.herokuapp.com/https://eigre.si/catalogsearch/result/index/?product_list_order=price&q=${searchQuery}&product_list_dir=asc`
-  );
+  const url = `https://eigre.si/catalogsearch/result/index/?product_list_order=price&q=${searchQuery}&product_list_dir=asc`;
+  const res = await fetch(`/api/cdn/fetchUrl?url=${url}`);
+  //const resf = await fetch(
+  //  `https://cors-anywhere.herokuapp.com/https://eigre.si/catalogsearch/result/index/?product_list_order=price&q=${searchQuery}&product_list_dir=asc`
+  //);
   const html = await res.text();
   const $ = load(html);
 
@@ -26,13 +28,13 @@ const fetchProducts = async searchQuery => {
     );
     const id = $sec(".price-box")[0].attribs["data-product-id"];
     const displayStore = store.EIGRE;
-    const querySimilarity = levenshtein.distance(name, searchQuery);
+    //const querySimilarity = levenshtein.distance(name, searchQuery);
     products.push({
       name,
       productPrice,
       displayStore,
       id,
-      querySimilarity,
+      //querySimilarity,
     });
   });
 };
