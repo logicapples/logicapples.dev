@@ -34,7 +34,7 @@
     disabled = false,
     filename,
     done;
-  const api_endpoint = "/api/cdn";
+  const api_endpoint = "http://localhost:8080";
 
   export default {
     mounted() {
@@ -112,10 +112,11 @@
         }
         const formData = new FormData();
         formData.append(0, input.files[0]);
-        source = await new EventSource(`${api_endpoint}/upload`);
+        source = new EventSource(`${api_endpoint}/sse`);
 
         source.addEventListener("message", e => {
-          console.log(JSON.parse(e.data));
+          //console.log(e.data);
+          //console.log(JSON.parse(e.data));
           disabled = true;
           const { bytesExpected, bytesReceived, percentage, isDone } =
             JSON.parse(e.data);
@@ -161,7 +162,7 @@
           document.querySelector(".grey").style.width = "";
           document.querySelector(
             ".fileSize"
-          ).innerHTML = `Your file has been uploaded!\n<a class="smallink" href="${api_endpoint}/files/${filename}" target="_blank">${filename}</a>`;
+          ).innerHTML = `Your file has been uploaded!\n<a class="smallink" href="${api_endpoint}/cdn_files/${filename}" target="_blank">${filename}</a>`;
           document.querySelector(".fileText").innerHTML = "File not selected";
           document.querySelector(".progress").style.opacity = "0.2";
           document.getElementById("fileinput").value = "";

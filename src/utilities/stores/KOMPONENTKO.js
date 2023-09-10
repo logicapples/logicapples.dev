@@ -9,11 +9,11 @@ const store = {
 };
 
 const fetchProducts = async searchQuery => {
-  const url = `https://komponentko.si/?s=${searchQuery}&post_type=product&et_search=true&orderby=price`;
-  const res = await fetch(`/api/cdn/fetchUrl?url=${url}`);
-  //const resf = await fetch(
-  //  `https://cors-anywhere.herokuapp.com/https://komponentko.si/?s=${searchQuery}&post_type=product&et_search=true&orderby=price`
-  //);
+  const res = await fetch(
+    `http://localhost:8080/getStores?store=${
+      Object.keys(store)[0]
+    }&search=${encodeURIComponent(searchQuery)}`
+  );
   const html = await res.text();
   const $ = load(html);
 

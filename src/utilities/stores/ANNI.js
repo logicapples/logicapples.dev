@@ -9,13 +9,12 @@ const store = {
 };
 
 const fetchProducts = async searchQuery => {
-  const url = `https://anni.si/search?search_query=${searchQuery}&submit_search=&orderby=price&orderway=asc`;
-  const res = await fetch(`http://localhost:8080/fetchText?url=${encodeURI(url, "UTF-8")}`);
-  //const resf = await fetch(
-  //  `https://cors-anywhere.herokuapp.com/https://anni.si/search?search_query=${searchQuery}&submit_search=&orderby=price&orderway=asc`
-  //);
+  const res = await fetch(
+    `http://localhost:8080/getStores?store=${
+      Object.keys(store)[0]
+    }&search=${encodeURIComponent(searchQuery)}`
+  );
   const html = await res.text();
-  console.log(html);
   const $ = load(html);
 
   $(".ajax_block_product").each((i, child) => {

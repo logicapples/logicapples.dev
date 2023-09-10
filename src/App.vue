@@ -20,6 +20,6 @@
       await fetch(
         "http://localhost:8080/fetchJson?url=https://api.ipify.org?format=json"
       );
-    }
-  }
+    },
+  };
 </script>

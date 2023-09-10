@@ -79,9 +79,9 @@ export default class ProductGetter {
         return a.querySimilarity - b.querySimilarity;
       })
       .reverse();
-    this.products = this.products.sort((a, b) => {
-      return a.productPrice - b.productPrice;
-    });
+    //this.products = this.products.sort((a, b) => {
+    //  return a.productPrice - b.productPrice;
+    //});
     return this.products; //.slice(0, 15);
   }
 }

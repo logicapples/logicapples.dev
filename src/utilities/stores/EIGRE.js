@@ -9,11 +9,11 @@ const store = {
 };
 
 const fetchProducts = async searchQuery => {
-  const url = `https://eigre.si/catalogsearch/result/index/?product_list_order=price&q=${searchQuery}&product_list_dir=asc`;
-  const res = await fetch(`/api/cdn/fetchUrl?url=${url}`);
-  //const resf = await fetch(
-  //  `https://cors-anywhere.herokuapp.com/https://eigre.si/catalogsearch/result/index/?product_list_order=price&q=${searchQuery}&product_list_dir=asc`
-  //);
+  const res = await fetch(
+    `http://localhost:8080/getStores?store=${
+      Object.keys(store)[0]
+    }&search=${encodeURIComponent(searchQuery)}`
+  );
   const html = await res.text();
   const $ = load(html);
 

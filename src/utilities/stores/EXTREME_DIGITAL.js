@@ -9,11 +9,11 @@ const store = {
 };
 
 const fetchProducts = async searchQuery => {
-  const url = `https://edigital.si/search?product%5Bsearch%5D=${searchQuery}&product%5Border%5D=cheapest`;
-  const res = await fetch(`/api/cdn/fetchUrl?url=${url}`);
-  //const resf = await fetch(
-  //  `https://cors-anywhere.herokuapp.com/https://edigital.si/search?product%5Bsearch%5D=${searchQuery}&product%5Border%5D=cheapest`
-  //);
+  const res = await fetch(
+    `http://localhost:8080/getStores?store=${
+      Object.keys(store)[0]
+    }&search=${encodeURIComponent(searchQuery)}`
+  );
   const html = await res.text();
   const $ = load(html);
 

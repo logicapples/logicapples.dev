@@ -9,12 +9,11 @@ const store = {
 };
 
 const fetchProducts = async searchQuery => {
-  const url = `https://www.mimovrste.com/iskanje?src=sug&s=${searchQuery}&o=_price`;
-  const res = await fetch(`/api/cdn/fetchUrl?url=${url}`);
-  //const resf = await fetch(
-  //  `https://cors-anywhere.herokuapp.com/https://www.mimovrste.com/iskanje?src=sug&s=${searchQuery}&o=_price`
-  //);
-  console.log(res);
+  const res = await fetch(
+    `http://localhost:8080/getStores?store=${
+      Object.keys(store)[0]
+    }&search=${encodeURIComponent(searchQuery)}`
+  );
   const html = await res.text();
   const $ = load(html);
 
