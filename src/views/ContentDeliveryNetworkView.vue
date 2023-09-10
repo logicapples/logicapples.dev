@@ -34,7 +34,7 @@
     disabled = false,
     filename,
     done;
-  const api_endpoint = "http://localhost:8080";
+  const api_endpoint = "/api";
 
   export default {
     mounted() {

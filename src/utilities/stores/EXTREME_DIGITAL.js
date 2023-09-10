@@ -10,7 +10,7 @@ const store = {
 
 const fetchProducts = async searchQuery => {
   const res = await fetch(
-    `http://localhost:8080/getStores?store=${
+    `/api/getStores?store=${
       Object.keys(store)[0]
     }&search=${encodeURIComponent(searchQuery)}`
   );
