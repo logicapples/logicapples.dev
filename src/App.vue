@@ -17,9 +17,9 @@
 <script>
   export default {
     async mounted() {
-      await fetch(
-        "/api/fetchJson?url=https://api.ipify.org?format=json"
-      );
+      const res = await fetch("/api/getRemInfo/p");
+      const data = await res.text();
+      console.log(data);
     },
   };
 </script>

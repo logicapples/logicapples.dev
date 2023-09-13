@@ -10,9 +10,9 @@ const store = {
 
 const fetchProducts = async searchQuery => {
   const res = await fetch(
-    `/api/getStores?store=${
-      Object.keys(store)[0]
-    }&search=${encodeURIComponent(searchQuery)}`
+    `/api/getStores?store=${Object.keys(store)[0]}&search=${encodeURIComponent(
+      searchQuery
+    )}`
   );
   const html = await res.text();
   const $ = load(html);
