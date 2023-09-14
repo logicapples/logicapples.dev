@@ -8,16 +8,7 @@ import eDigital from "@/utilities/stores/EXTREME_DIGITAL";
 import komponentko from "@/utilities/stores/KOMPONENTKO";
 import anni from "@/utilities/stores/ANNI";
 import eIgre from "@/utilities/stores/EIGRE";
-
-const Stores = {
-  MIMOVRSTE: "Mimovrste",
-  FUNTECH: "FunTech",
-  EXTREME_DIGITAL: "eDigital",
-  KOMPONENTKO: "KomponentKo",
-
-  ANNI: "Anni",
-  EIGRE: "eIgre",
-};
+import balix from "@/utilities/stores/BALIX";
 
 export default class ProductGetter {
   constructor() {
@@ -63,6 +54,12 @@ export default class ProductGetter {
     });
     await eIgre.fetchProducts(searchQuery);
 
+    emitter.emit("searchButtonTextChange", {
+      text: `Fetching ${eIgre.store.BALIX} | 6/6`,
+      degrees: "360",
+    });
+    await balix.fetchProducts(searchQuery);
+
     //blokada
     //mimovrste.products = mimovrste.products.slice(0, 4);
 
@@ -73,6 +70,7 @@ export default class ProductGetter {
       ...komponentko.products,
       ...anni.products,
       ...eIgre.products,
+      ...balix.products,
     ];
     this.products = this.products
       .sort((a, b) => {
