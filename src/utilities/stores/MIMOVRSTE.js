@@ -4,13 +4,11 @@ import { load } from "cheerio";
 //import { levenshtein } from "string-comparison";
 
 const products = [];
-const store = {
-  MIMOVRSTE: "Mimovrste",
-};
+const store = "Mimovrste";
 
 const fetchProducts = async searchQuery => {
   const res = await fetch(
-    `/api/getStores?store=${Object.keys(store)[0]}&search=${encodeURIComponent(
+    `/api/getStores?store=${store.toUpperCase()}&search=${encodeURIComponent(
       searchQuery
     )}`
   );
@@ -24,13 +22,12 @@ const fetchProducts = async searchQuery => {
     const productPrice = Number(
       stringPrice.slice(0, -5).trim().replace(/\./g, "").replace(",", ".")
     );
-    const displayStore = store.MIMOVRSTE;
     const id = child.attribs.id;
     //const querySimilarity = levenshtein.distance(name, searchQuery);
     products.push({
       name,
       productPrice,
-      displayStore,
+      store,
       id,
       //querySimilarity,
     });

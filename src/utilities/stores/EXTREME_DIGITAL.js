@@ -4,13 +4,11 @@ import { load } from "cheerio";
 //import { levenshtein } from "string-comparison";
 
 const products = [];
-const store = {
-  EXTREME_DIGITAL: "eDigital",
-};
+const store = "eDigital";
 
 const fetchProducts = async searchQuery => {
   const res = await fetch(
-    `/api/getStores?store=${Object.keys(store)[0]}&search=${encodeURIComponent(
+    `/api/getStores?store=${store.toUpperCase()}&search=${encodeURIComponent(
       searchQuery
     )}`
   );
@@ -20,7 +18,6 @@ const fetchProducts = async searchQuery => {
   $(".col-md-4").each((i, child) => {
     if (child.name != "li") return;
     const name = JSON.parse(child.children[0].attribs["data-ga-360-data"]).name;
-    const displayStore = store.EXTREME_DIGITAL;
     const stringPrice =
       child.children[0].children[2].children[9].children[2].children[0]
         .children[0].data;
@@ -34,7 +31,7 @@ const fetchProducts = async searchQuery => {
     products.push({
       name,
       productPrice,
-      displayStore,
+      store,
       id,
       //querySimilarity,
     });

@@ -4,7 +4,7 @@ import { load } from "cheerio";
 //import { levenshtein } from "string-comparison";
 
 const products = [];
-const store = "Balix";
+const store = "Akcija";
 
 const fetchProducts = async searchQuery => {
   const res = await fetch(
@@ -12,21 +12,19 @@ const fetchProducts = async searchQuery => {
       searchQuery
     )}`
   );
-
   const html = await res.text();
   const $ = load(html);
 
-  $(".product-inner").each((i, child) => {
+  $(".wrapper_prods").each((i, child) => {
     const $sec = load(child);
+    const name = $sec(".ProductNameOneLine")[0].children[0].children[0]
+      .children[0].children[0].data;
 
-    const name = $sec(".woocommerce-loop-product__title")[0].children[0].data;
-    const stringPrice = $sec(
-      ".woocommerce-Price-amount"
-    )[0].children[0].children[0].data.replace(" ", "");
+    const stringPrice = $sec(".price")[0].children[1].children[0].data.trim();
     const productPrice = Number(
       stringPrice.slice(0, -1).trim().replace(/\./g, "").replace(",", ".")
     );
-    const id = 1;
+    const id = child.attribs["data-productid"];
     //const querySimilarity = levenshtein.distance(name, searchQuery);
     products.push({
       name,
@@ -40,6 +38,6 @@ const fetchProducts = async searchQuery => {
 
 export default {
   fetchProducts,
-  products,
   store,
+  products,
 };
