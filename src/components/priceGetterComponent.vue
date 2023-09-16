@@ -1,7 +1,7 @@
 <!-- @format -->
 
 <script setup>
-  import Product from "./Product.vue";
+  import Product from "./product.vue";
   import ProductGetter from "../utilities/product-getter";
   import CartProduct from "./CartProduct.vue";
 </script>
@@ -22,7 +22,7 @@
         v-for="one of stuff"
         :name="one.name"
         :price="one.productPrice"
-        :store="one.displayStore"
+        :store="one.store"
         :querySimilarity="one.querySimilarity"
         v-if="is_data_fetched" />
     </div>
