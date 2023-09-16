@@ -1,7 +1,7 @@
 <!-- @format -->
 
 <script setup>
-  import Product from "./product.vue";
+  import Product from "./Product.vue";
   import ProductGetter from "../utilities/product-getter";
   import CartProduct from "./CartProduct.vue";
 </script>
