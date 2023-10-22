@@ -1,12 +1,8 @@
 <!-- @format -->
-<script setup>
-  import { useRouter, RouterLink } from "vue-router";
-  import Footer from "../components/Footer.vue";
-</script>
+<script setup></script>
 
 <template>
-  <div class="home">
-  </div>
+  <div class="home"> </div>
 </template>
 
 <script>
