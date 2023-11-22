@@ -34,16 +34,10 @@
     disabled = false,
     filename,
     done;
-  const api_endpoint = "/api";
+  const api_endpoint = "http://localhost:8395/api";
 
   export default {
     mounted() {
-      document.querySelector(".navspace").style.visibility = "visible";
-      document.querySelector(".navspace").style.animation =
-        "navbarMovement .8s";
-      document.querySelector(".app").style.animation = "changeBg 1s forwards";
-      document.querySelector("footer").style.display = "flex";
-
       document
         .getElementById("fileinput")
         .addEventListener("change", handleFiles, false);
@@ -62,7 +56,7 @@
         document.querySelector(".dropbox").style.border = "red solid 1px";
       }
 
-      function dragleave(e) {
+      function dragleave() {
         document.querySelector(".dropbox").style.border = "white solid 1px";
       }
 
