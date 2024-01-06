@@ -6,9 +6,9 @@ import { load } from "cheerio";
 const products = [];
 const store = "Mimovrste";
 
-const fetchProducts = async searchQuery => {
+const fetchProducts = async ({ searchQuery, apiPrefix }) => {
   const res = await fetch(
-    `/api/getStores?store=${store.toUpperCase()}&search=${encodeURIComponent(
+    `${apiPrefix}${store.toUpperCase()}&search=${encodeURIComponent(
       searchQuery
     )}`
   );

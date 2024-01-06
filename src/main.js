@@ -14,6 +14,7 @@ const app = createApp(App);
 app.use(router);
 
 app.config.globalProperties.emitter = emitter;
+app.config.globalProperties.environment = "dev";
 
 export const useGlobals = () => app.config.globalProperties;
 

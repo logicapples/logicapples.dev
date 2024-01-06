@@ -6,9 +6,9 @@ import { load } from "cheerio";
 const products = [];
 const store = "Akcija";
 
-async function fetchProducts() {
+async function fetchProducts({searchQuery, apiPrefix}) {
   const res = await fetch(
-    `/api/getStores?store=${store.toUpperCase()}&search=${encodeURIComponent(
+    `${apiPrefix}${store.toUpperCase()}&search=${encodeURIComponent(
       searchQuery
     )}`
   );
