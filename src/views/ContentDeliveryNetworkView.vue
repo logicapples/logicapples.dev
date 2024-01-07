@@ -1,5 +1,177 @@
 <!-- @format -->
 
+<style scoped>
+a {
+  text-decoration: none;
+  font-size: 20px;
+  transition: 0.3s;
+  border-radius: 5px;
+  color: white;
+  padding: 0 10px;
+}
+
+.smallink {
+  font-size: 13px;
+  color: darkgreen;
+  text-align: center;
+}
+
+a:hover {
+  scale: 120%;
+}
+
+li {
+  text-decoration: none;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.actual {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: 6rem;
+  margin-left: 15px;
+}
+
+.details {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  text-align: center;
+}
+
+.error {
+  position: absolute;
+  bottom: 70px;
+  right: 30px;
+  max-width: 290px;
+  max-height: 150px;
+  border-radius: 10px;
+  background: #ff808a;
+  color: black;
+  display: none;
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 2004;
+}
+
+.fileSize {
+  background: #000000;
+  color: white;
+}
+
+.progress {
+  opacity: 0.2;
+}
+
+.dropbox {
+  width: 20rem;
+  height: 200px;
+  background-image: url("https://w7.pngwing.com/pngs/410/111/png-transparent-down-arrow-logo-arrow-down-android-down-arrow-hand-triangle-internet.png");
+  background-size: 20%;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-color: #ffffff;
+  filter: invert(90%);
+  border: black 3px dashed;
+  transition: all 0.3s ease-out;
+}
+
+.dropbox:hover {
+  cursor: pointer;
+  border: red solid 1px;
+}
+
+.cdn {
+  flex-direction: column;
+  color: white;
+}
+
+.appc {
+  display: flex;
+  justify-content: space-around;
+  height: 70vh;
+  width: 100vw;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cdnupload {
+  width: 100px;
+  height: 40px;
+  background: #0f2021;
+  color: white;
+  border-radius: 10px;
+  padding: 0 10px;
+  transition: all 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#fileinput {
+  display: none;
+}
+
+.progressXbutton {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 20%;
+}
+
+.border {
+  border: rgb(40, 40, 40) 1px solid;
+  border-radius: 50px;
+  width: 35rem;
+}
+
+.grey {
+  border-radius: 50px;
+  height: 24px;
+  width: 0%;
+  background: repeating-linear-gradient(
+      -45deg,
+      gray,
+      gray 20px,
+      black 20px,
+      black 40px
+    )
+    300% 0/200% 400%;
+  animation: a 10s linear infinite;
+  transition: all 0.7s linear;
+}
+
+.cdnupload:hover {
+  scale: 110%;
+  cursor: pointer;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input[type="file"]::file-selector-button {
+  padding: 0;
+  margin: 0;
+}
+
+.udetails {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
+
 <template>
   <div class="appc">
     <span class="fileSize error"></span>

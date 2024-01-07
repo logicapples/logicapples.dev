@@ -19,7 +19,7 @@ export default class ProductGetter {
 
   async getAllProducts(searchQuery) {
     const { emitter } = useGlobals();
-    const fetchParams = {searchQuery, apiPrefix: this.apiPrefix}
+    const fetchParams = { searchQuery, apiPrefix: this.apiPrefix };
 
     emitter.emit("searchButtonTextChange", {
       text: `Fetching ${mimovrste.store} | 1/8`,
